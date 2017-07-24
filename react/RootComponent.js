@@ -1,5 +1,6 @@
 import React from 'react';
 import NavigationBar from './NavigationBar';
+import ShowRegisteredUsersTable from './ShowRegisteredUsersTable';
 
 // this is the root for all of the React components
 
@@ -12,32 +13,35 @@ class RootComponent extends React.Component {
     };
   }
 
-  handleSignInButtonClick = () => {
-    console.log('Sign in button clicked');
+  // user sign in
+  onSignIn = (e) => {
     this.setState({
-      username: 'James',
+      username: e
     });
+    console.log(this.state.username);
   }
 
-  handleSignOutButtonClick = () => {
-    console.log('Sign out button clicked');
+  // user sign out
+  onSignOut = () => {
     this.setState({
-      username: null,
+      username: null
     });
-  }
-
-  handleRegisterButtonClick = () => {
-    console.log('Register button clicked');
   }
 
   render() {
     return (
-      <NavigationBar
-        username={this.state.username}
-        handleRegisterButtonClick={this.handleRegisterButtonClick}
-        handleSignInButtonClick={this.handleSignInButtonClick}
-        handleSignOutButtonClick={this.handleSignOutButtonClick}
-      />
+      <div>
+        <NavigationBar
+          username={this.state.username}
+          onSignIn={this.onSignIn}
+          onSignOut={this.onSignOut}
+        />
+        {
+          this.state.username ?
+          <ShowRegisteredUsersTable /> : <p>Sign in to see registered users</p>
+        }
+      </div>
+
     );
   }
 }

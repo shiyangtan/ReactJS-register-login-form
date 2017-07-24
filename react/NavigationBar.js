@@ -1,41 +1,42 @@
 import GreetUser from './GreetUser';
-import RegisterLogInOut from './RegisterLogInOut';
-import AppBar from 'material-ui/AppBar';
+import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/ToolBar';
 import React from 'react';
+import RegisterButton from './Register/RegisterButton';
+import SignInButton from './SignIn/SignInButton';
+import FlatButton from 'material-ui/FlatButton';
 
 // define navigation bar with message to user and buttons
 const NavigationBar = (props) => {
-
-  // username of current user
+  // current log in user
   const username = props.username;
 
-  // handle register button click
-  const handleRegisterButtonClick = props.handleRegisterButtonClick;
+  // event triggered when user sign in
+  const onSignIn = props.onSignIn;
 
-  // handle sign in button click
-  const handleSignInButtonClick = props.handleSignInButtonClick;
-
-  // handle sign out button click
-  const handleSignOutButtonClick = props.handleSignOutButtonClick;
+  // event triggered when user sign out
+  const onSignOut = props.onSignOut;
 
   return (
-    <AppBar
-      title={<GreetUser username={username} />}
-      iconElementRight={
-        <RegisterLogInOut
-          username={username}
-          handleRegisterButtonClick={handleRegisterButtonClick}
-          handleSignOutButtonClick={handleSignOutButtonClick}
-          handleSignInButtonClick={handleSignInButtonClick}
-        />
+    <Toolbar>
+      <ToolbarGroup>
+        <ToolbarTitle text={<GreetUser username={username} />} />
+      </ToolbarGroup>
+
+      {
+        username ?
+        (// user is currently sign in
+          <ToolbarGroup>
+            <FlatButton label="Sign out" onTouchTap={onSignOut} />
+          </ToolbarGroup>
+        ) :
+        ( // user has logged out
+          <ToolbarGroup>
+            <RegisterButton />
+            <SignInButton onSignIn={onSignIn} />
+          </ToolbarGroup>
+        )
       }
-      style={{
-        backgroundColor: 'grey100',
-      }}
-      titleStyle={{
-        color: 'grey500'
-      }}
-    />
+    </Toolbar>
   );
 };
 
