@@ -2,6 +2,11 @@
 
 This repo consists of 2 simple demo: NodeJS API & ReactJS registration and login form.
 
+<h3>Get started</h3>
+Install NPM modules
+Create build directory and run <code>npm run webpack</code> to compile ReactJS files
+Start server by <code>node server.js</code>
+
 <h3>NodeJS API</h3>
 Go to http://localhost:3000/ to add new item by POST method.
 Go to http://localhost:3000/items to see a list of items.
